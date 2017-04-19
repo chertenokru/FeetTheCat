@@ -6,11 +6,19 @@ import ru.chertenok.feedthecat.logo.LogoFrame;
 import javax.swing.*;
 
 /**
- * Created by 13th on 15.04.2017.
+ *  Демо проект:
+ *  - отработка простейшего графического движка на базе класса DrawPanel
+ *  - работа со внешними шрифтами CustomFonts
+ *  - отработка зачаточного механизма анимации - Sprite, Cat
+ *
+ *  GitHub:
+ *  https://github.com/chertenokru/FeetTheCat
+ *
  */
 public class Main {
 
     public static void main(String[] args) {
+   // первичный пример работы с DrawPanel, признан не актуальным, сокращенная заставка перенесена в игровой класс
     // заставка
 //          JFrame f = new LogoFrame();
 //        while (f.isVisible() )  {

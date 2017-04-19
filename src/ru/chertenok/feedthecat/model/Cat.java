@@ -16,9 +16,6 @@ public class Cat extends Sprite {
     private int spriteSizeX = 56;
     private int spriteSizeY = 62;
     private int currentStage;
-    private long updateCount = 0;
-    private long sumSpeed;
-    private int speed;
     private Font font;
     private int status = 0;
     public static final int STATUS_WAIT = 0;
@@ -26,6 +23,7 @@ public class Cat extends Sprite {
     public static final int STATUS_WINNER = 2;
     public static final int STATUS_LOSER = 3;
     public static final int STATUS_COUNT = 4;
+    private long num = 1;
 
     private Point[][] pointImage;
     private Random rand = new Random();
@@ -38,7 +36,10 @@ public class Cat extends Sprite {
 
         currentStage = rand.nextInt(pointImage[status].length-1);
         this.status = status;
-        if (status == STATUS_RUN) moveDX = 5; else moveDX = 0;
+        if (status == STATUS_RUN) {
+            moveDX = rand.nextInt((GameData.maxSpeed - GameData.minSpeed) + 1) + GameData.minSpeed;
+
+        } else moveDX = 0;
     }
 
     public Cat() {
@@ -98,16 +99,10 @@ public class Cat extends Sprite {
     public void drawCat(Graphics2D g ){
         int x1 = pointImage[status][currentStage].x*spriteSizeX;
         int y1 = pointImage[status][currentStage].y*spriteSizeY;
-        int z = 0;
-
-        //g.setColor(new Color(255,255,255,0));
-        //g.setComposite(AlphaComposite.Clear);
-       // g.fillRect(x,y,x+spriteSizeX,y+spriteSizeY);
-        g.setComposite(AlphaComposite.Src);
-        g.drawImage(spriteImage,x,y,x+spriteSizeX,y+spriteSizeY,x1-z,y1,x1+spriteSizeX,y1+spriteSizeY,null);
+        g.drawImage(spriteImage,x,y,x+spriteSizeX,y+spriteSizeY,x1,y1,x1+spriteSizeX,y1+spriteSizeY,null);
         if (moveDX != 0 ) {
             g.setColor(Color.WHITE);
-            g.draw3DRect(x+10, y + spriteSizeY, spriteSizeX-10, 5, true);
+            g.drawRect(x+10, y + spriteSizeY, spriteSizeX-10, 5);
             if (  moveDX < 10) g.setColor(Color.RED);
             if (moveDX > 9 && moveDX < 17) g.setColor(Color.YELLOW);
             if (moveDX > 16) g.setColor(Color.GREEN);
@@ -124,18 +119,24 @@ public class Cat extends Sprite {
     public void updateStage(){
 
         long time = System.nanoTime();
-        if ((time-timeLastSpriteUpdate) < GameData.stageDelay) return;
+        if ((time-timeLastSpriteUpdate) < GameData.stageDelay) return ;
         if (currentStage < pointImage[status].length-1) currentStage ++; else currentStage = 0;
-     //   if (currentStage == 0) currentStage = 1; else currentStage = 0;
+        // если забег
+        if (status == STATUS_RUN)
+        {
+            // и прошло GameData.freqRandom итераций, то генерим новую скорость для всех котов
+            if ( (num % GameData.freqRandom) == 0) {
+                // новая скорость по горизонтали
+                moveDX = rand.nextInt((GameData.maxSpeed - GameData.minSpeed) + 1) + GameData.minSpeed;
+            }
+            num++;
+        }
         x += moveDX;
         y += moveDY;
-        if (currentStage == STATUS_RUN)
-        {
-            //updateCount++;
-            //sumSpeed += moveDX;
-            //speed = (int)( sumSpeed / updateCount);
-        }
+
         timeLastSpriteUpdate  = System.nanoTime();
+
+
     }
 
 }

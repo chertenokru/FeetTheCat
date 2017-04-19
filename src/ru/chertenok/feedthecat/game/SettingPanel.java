@@ -14,10 +14,13 @@ public class SettingPanel extends JFrame {
     JTextField tf_maxSpeed;
     JTextField tf_freqRandom;
     JTextField tf_spriteDelay;
+    JTextField tf_sleepDelay;
+    JTextField tf_fpsDelay;
     JButton b_ok;
     JButton b_cancel;
+    GamesPanel gamesPanel;
 
-    public SettingPanel() {
+    public SettingPanel(GamesPanel gamesPanel) {
         super();
         setTitle("Настройки игры");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -56,20 +59,34 @@ public class SettingPanel extends JFrame {
         add(tf_freqRandom, constraints);
         constraints.gridx = 0;
         constraints.gridy = 4;
-        add(new JLabel("Задержка отрисовки: "), constraints);
+        add(new JLabel("Задержка анимации и движения, нс: "), constraints);
         constraints.gridx = 1;
-        tf_spriteDelay = new JTextField(10);
+        tf_spriteDelay = new JTextField(7);
         tf_spriteDelay.setText(Integer.toString(GameData.stageDelay));
-
         add(tf_spriteDelay, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+//        add(new JLabel("Время сна управляющего потока, чтобы основной успел отрисоваться "), constraints);
+//        constraints.gridx = 1;
+//        tf_sleepDelay = new JTextField(5);
+//        tf_sleepDelay.setText(Long.toString(GameData.sleepTime));
+//        add(tf_sleepDelay, constraints);
+//        constraints.gridx = 0;
+        constraints.gridy = 6;
+        add(new JLabel("Ограничить FPS до (0 - без ограничений ), к/c: "), constraints);
+        constraints.gridx = 1;
+        tf_fpsDelay = new JTextField(3);
+        tf_fpsDelay.setText(Integer.toString(gamesPanel.getMaxFPS()));
+        add(tf_fpsDelay, constraints);
 
 
         constraints.gridx = 0;
-        constraints.gridy = 5;
+        constraints.gridy = 7;
         b_ok = new JButton("Применить");
         b_ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                // если применить, то меняем настройки
                 try {
                     GameData.freqRandom = Integer.valueOf(tf_freqRandom.getText());
                 } catch (Exception e) {
@@ -90,6 +107,14 @@ public class SettingPanel extends JFrame {
                     GameData.stageDelay = Integer.valueOf(tf_spriteDelay.getText());
                 } catch (Exception e) {
                 }
+                try {
+                    GameData.sleepTime = Integer.valueOf(tf_sleepDelay.getText());
+                } catch (Exception e) {
+                }
+                 try {
+                        gamesPanel.setMaxFPS( Integer.valueOf(tf_fpsDelay.getText()));
+                    } catch (Exception e) {
+                    }
             }
         });
 

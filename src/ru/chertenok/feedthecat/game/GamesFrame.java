@@ -16,7 +16,7 @@ public class GamesFrame extends JFrame {
         super();
         p = new GamesPanel();
         add(p);
-        setSize(800, 600);
+        setSize(800, 620);
         setResizable(false);
         setLocationRelativeTo(null);
         // скрыть заголовок окна

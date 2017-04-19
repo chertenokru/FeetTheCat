@@ -1,6 +1,5 @@
 package ru.chertenok.feedthecat.game;
 
-import javafx.scene.shape.*;
 import ru.chertenok.feedthecat.Main;
 import ru.chertenok.feedthecat.model.DrawPanel;
 import ru.chertenok.feedthecat.model.Cat;
@@ -13,6 +12,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -31,27 +31,25 @@ public class GamesPanel extends DrawPanel {
     private JLabel l_userMoney;
     private JButton b_setting;
     private SettingPanel sp;
-
+    volatile  private int userPanelHeight = 50;
+    private Rectangle _repaintBound;
 
 
 
     public GamesPanel() {
         super(800, 600);
         GameData.status = GameData.STATUS_WAIT;
-
-
         setLayout(new BorderLayout());
-        buildBackground();
         userPanel = new JPanel();
         //setOpaque(true);
-        userPanel.setSize(800, 50);
-        l_userMoney = new JLabel("У Вас денег :  "+ GameData.userMoney+"   ");
+        userPanel.setSize(panelWidth, userPanelHeight);
+        l_userMoney = new JLabel("У Вас денег :  " + GameData.userMoney + "   ");
         l_userMoney.setForeground(Color.BLUE);
         userPanel.add(l_userMoney);
-        String[] cat_value =  {"1","2","3","4","5","6"};
-        int[] cat_int = {0,1,2,3,4,5,6};
-        String[] money_value = {"1","5","20","50"};
-        int[] money_int = {1,5,20,50};
+        String[] cat_value = {"1", "2", "3", "4", "5", "6"};
+        int[] cat_int = {0, 1, 2, 3, 4, 5, 6};
+        String[] money_value = {"1", "5", "20", "50"};
+        int[] money_int = {1, 5, 20, 50};
         userPanel.add(new JLabel("котоЛошадь:  "));
         cb_cats = new JComboBox(cat_value);
         userPanel.add(cb_cats);
@@ -89,160 +87,188 @@ public class GamesPanel extends DrawPanel {
                 }
 
 
-
-                }
+            }
         });
         userPanel.add(b_start);
         userPanel.add(new JLabel("      "));
         b_setting = new JButton("Настройка");
+        GamesPanel gp = this;
         b_setting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (sp == null)sp = new SettingPanel();
+                if (sp == null) sp = new SettingPanel(gp);
                 sp.setVisible(true);
                 sp.setAlwaysOnTop(true);
             }
         });
         userPanel.add(b_setting);
 
-//        userPanel.setBorder(BorderFactory.createBevelBorder(5));
-        userPanel.setOpaque(true);
         add(userPanel, BorderLayout.SOUTH);
 
+        userPanelHeight = userPanel.getHeight();
+        _repaintBound = new Rectangle(0, 0, panelWidth, panelHeight - userPanelHeight);
+        setRepaintBound(_repaintBound);
+        buildBackground();
+        // запускаем поток, который будет управлять всем происходящим ( - run)
         new Thread(this).start();
-
     }
 
+    // фоновый слой с травой
     private void buildBackground() {
-        backgroundFon = new BufferedImage(panelWidth, panelHeight, BufferedImage.TYPE_INT_ARGB);
+        backgroundFon = new BufferedImage(panelWidth, panelHeight - userPanelHeight, BufferedImage.TYPE_INT_RGB);
         ImageIcon imageI = new ImageIcon(Main.class.getResource("/ru/chertenok/feedthecat/images/grass.jpg"));
         Graphics2D g = DrawPanel.initGraphics(backgroundFon);
-
         for (int i = 0; i <= panelWidth / imageI.getIconWidth(); i++)
             for (int j = 0; j <= panelHeight / imageI.getIconHeight(); j++) {
                 g.drawImage(imageI.getImage(), i * imageI.getIconWidth(), j * imageI.getIconHeight(), null);
             }
+        // добавляем в стэк отрисовки самым нижним слоем
         imageList.add(new ImageData(backgroundFon, 0, 0, backgroundFon.getWidth(), backgroundFon.getHeight()));
-        BufferedImage image2 = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = DrawPanel.initGraphics(image2);
-        g2.setFont(CustomFonts.getCustomFont(3, Font.ITALIC, 30));
-        String s = "Минутку !";
-        Rectangle rect = CustomFonts.getTextCenterInImage(s, image2, g2);
-        g2.drawString(s, rect.x, rect.y);
-        g2.drawString(s, rect.x, rect.y + 80);
-
-        id_wait = new ImageData(image2, 0, 0, 800, 600);
-
-        imageList.add(id_wait);
+        g.dispose();
         repaint();
-
-
     }
 
 
     @Override
     public void run() {
-        repaint();
-        BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = DrawPanel.initGraphics(image);
-        Random r = new Random();
+
+
+        fpsIsLimit = false;
+
+        // инициализация котов
         for (int i = 0; i < GameData.catCount; i++) {
             cats[i] = new Cat();
             cats[i].setX(50);
             cats[i].setY(i * 70);
-            //   cats[i].setMoveDX(r.nextInt(8)+8);
-            //    cats[i].drawCat(g);
         }
-//        cats[1].setStatus(Cat.STATUS_RUN);
-//        cats[4].setStatus(Cat.STATUS_RUN);
-//        cats[5].setStatus(Cat.STATUS_RUN);
-//        cats[2].setStatus(Cat.STATUS_LOSER);
-//        cats[3].setStatus(Cat.STATUS_WINNER);
-        imageList.add(new ImageData(image, 0, 0, 800, 600));
+
+
+        BufferedImage image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = DrawPanel.initGraphics(image);
+        // линия финиша
+        g.setColor(Color.YELLOW);
+        g.drawRect(700, 2, 1, 500);
+        // линия старта
+        g.setColor(Color.WHITE);
+        g.drawRect(50, 2, 1, 500);
+        // рисуем номера котов
+        g.setFont(CustomFonts.getCustomFont(3, 30));
+        for (int i = 0; i < GameData.catCount; i++) {
+            g.drawString("" + (i + 1), 20, 71 * i + 50);
+        }
+        imageList.add(new ImageData(image, 0, 0, panelWidth, panelHeight - userPanelHeight));
+        g.dispose();
+
+        // welcome сообщение
+        image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
+        g = DrawPanel.initGraphics(image);
+        g.setFont(CustomFonts.getCustomFont(3, Font.ITALIC, 30));
+        String s = "Укажите Вашу ставку и";
+        // получаем размеры надписи и её координаты для надписи по центру экрана
+        Rectangle rect = CustomFonts.getTextCenterInImage(s, image, g);
+        g.drawString(s, rect.x, rect.y);
+        s = "и \n выберите номер котолошади!";
+        rect = CustomFonts.getTextCenterInImage(s, image, g);
+        g.drawString(s, rect.x, rect.y + 80);
+        // сохраняем ссылку на слой, чтоб его можно было удалять и добавлять в процессе игры
+        id_welcome = new ImageData(image, 0, 0, _repaintBound.width, _repaintBound.height);
+        imageList.add(id_welcome);
+        g.dispose();
+
+        // а на этом слое мы будем рисовать наших котиков
+        image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
+        g = DrawPanel.initGraphics(image);
+        imageList.add(new ImageData(image, 0, 0, _repaintBound.width, _repaintBound.height));
+
         repaint();
 
-
-        BufferedImage image1 = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g1 = DrawPanel.initGraphics(image1);
-
-        g1.setColor(Color.YELLOW);
-        g1.drawRect(700, 2, 1, 500);
-        g1.setColor(Color.WHITE);
-        g1.drawRect(50, 2, 1, 500);
-        g1.setFont(CustomFonts.getCustomFont(3, 30));
-        for (int i = 0; i < GameData.catCount; i++) {
-            g1.drawString(Integer.toString(i + 1), 20, 71 * i + 50);
-        }
-        imageList.add(new ImageData(image1, 0, 0, 800, 600));
-
-        BufferedImage image2 = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = DrawPanel.initGraphics(image2);
-        g2.setFont(CustomFonts.getCustomFont(3, Font.ITALIC, 30));
-        String s = "Укажите Вашу ставку и";
-
-        Rectangle rect = CustomFonts.getTextCenterInImage(s, image2, g2);
-        g2.drawString(s, rect.x, rect.y);
-        s = "и \n выберите номер котолошади!";
-        rect = CustomFonts.getTextCenterInImage(s, image2, g2);
-        g2.drawString(s, rect.x, rect.y + 80);
-
-        id_welcome = new ImageData(image2, 0, 0, 800, 600);
-
-        imageList.add(id_welcome);
-
-        sleep(100);
         boolean f;
-        int num = 0;
+        long num = 0;
         imageList.remove(id_wait);
+        // вечный игровой цикл
         while (true) {
+            // нет победы
             f = false;
 
-           // repaint();
-            sleep(5);
-            //  g.fillRect(50,50,150,150);
-            //  g.drawImage(ik.getImage(),0,0,null);
-            g.setColor(new Color(255, 255, 255, 0));
-            g.setComposite(AlphaComposite.Src);
-            g.fillRect(0, 0, panelWidth, panelHeight);
+            // repaint();
+            //sleep(GameData.sleepTime);
 
+            // стираем старый экран с котиками, для этого создаём прозрачный цвет
+            g.setColor(new Color(255, 255, 255, 0));
+            // и говорим что при отрисовке важнее цвет которым рисуем, чем тот на котором рисуем, иначе стирать не будет
+            g.setComposite(AlphaComposite.Src);
+            // стираем
+            g.fillRect(0, 0, _repaintBound.width, _repaintBound.height);
+
+            // контролируем наших котиков, не добежал ли кто до финиша
             for (int i = 0; i < GameData.catCount; i++) {
-                if (GameData.status == GameData.STATUS_RUN && cats[i].getX()>636+50) {
+                // если забег и кот преодалел финишную линию
+                if (GameData.status == GameData.STATUS_RUN && cats[i].getX() > 636 + 50) {
+                    // то забег закончен, есть победитель
                     GameData.status = GameData.STATUS_WIN;
+                    // сохраняем его
                     GameData.winCatNum = i;
+                    // ставим флаг, что победа в этом шаге цикла и потом сбрасываем его в начале цикла, чтобы не крутиться тут вечно
                     f = true;
                     break;
-
                 }
 
+                // обновляем котов (анимация + сдвиг координат )
                 cats[i].updateStage();
-                if (cats[i].getStatus() == Cat.STATUS_RUN && (num % GameData.freqRandom) == 0)
-                    cats[i].setMoveDX(r.nextInt((GameData.maxSpeed- GameData.minSpeed)+1) + GameData.minSpeed);
-                cats[i].drawCat(g);  }
-             repaint();
+                // отрисовка кота на нашем слое
+                cats[i].drawCat(g);
+            }
+            // repaint();
+            // отрисовываем весь стэк слоёв
+            try {
+                EventQueue.invokeAndWait(() -> paintComponent(getGraphics()));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
            // this.paintComponent(this.getGraphics());
+            // если победа, то сбрасываем всё и обрабатываем победу
             if (GameData.status == GameData.STATUS_WIN && f) updateWin();
-            num++;
         }
     }
 
+    // обработка победы
     private void updateWin() {
-        //GameData.status = GameData.STATUS_WAIT;
+        // обновляем счёт пользователя
         if (GameData.winCatNum == GameData.userCatNum) {
             GameData.userMoney += GameData.userStavka;
         } else {
             GameData.userMoney -= GameData.userStavka;
 
         }
-        l_userMoney.setText("У Вас денег :"+ GameData.userMoney);
-        b_start.setText((GameData.winCatNum == GameData.userCatNum)?"Вы выиграли, Нажмите для продолжения":" Вы проиграли, Нажмите для продолжения");
+        // выводим на экран
+        l_userMoney.setText("У Вас денег :" + GameData.userMoney);
+        // меняем надпись на кнопке, можно было бы сделать надписью и картинкой в отдельном слое на игровом поле, но пока лень
+        b_start.setText((GameData.winCatNum == GameData.userCatNum) ? "Вы выиграли, Нажмите для продолжения" : " Вы проиграли, Нажмите для продолжения");
+        // включаем кнопку старта
         b_start.setEnabled(true);
+        // меняем состояние котов (вид картинки анимации)
         for (int i = 0; i < GameData.catCount; i++) {
             if (i == GameData.winCatNum) {
+                // победитель
                 cats[i].setStatus(Cat.STATUS_WINNER);
             } else {
+                // лузеры
                 cats[i].setStatus(Cat.STATUS_LOSER);
             }
 
         }
+    }
+
+    public int getMaxFPS() {
+        //если включено ограничение, то вернем его, иначе 0
+        return (fpsIsLimit)? fpsMax: 0;
+    }
+
+    public void setMaxFPS(int fps) {
+        fpsIsLimit = fps > 0;
+        if (fps != 0) fpsMax = fps;
+
     }
 }
