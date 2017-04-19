@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="FeedTheCat:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FeedTheCat_jar</output-path>
+    <root id="archive" name="FeedTheCat.jar">
+      <element id="module-output" name="FeedTheCat" />
+    </root>
+  </artifact>
+</component>
