@@ -192,32 +192,34 @@ public class GamesPanel extends DrawPanel {
 
             // repaint();
             //sleep(GameData.sleepTime);
+            if (!fpsIsLimit || (fpsIsLimit && fpsCount< fpsMax )) {
 
-            // стираем старый экран с котиками, для этого создаём прозрачный цвет
-            g.setColor(new Color(255, 255, 255, 0));
-            // и говорим что при отрисовке важнее цвет которым рисуем, чем тот на котором рисуем, иначе стирать не будет
-            g.setComposite(AlphaComposite.Src);
-            // стираем
-            g.fillRect(0, 0, _repaintBound.width, _repaintBound.height);
+                // стираем старый экран с котиками, для этого создаём прозрачный цвет
+                g.setColor(new Color(255, 255, 255, 0));
+                // и говорим что при отрисовке важнее цвет которым рисуем, чем тот на котором рисуем, иначе стирать не будет
+                g.setComposite(AlphaComposite.Src);
+                // стираем
+                g.fillRect(0, 0, _repaintBound.width, _repaintBound.height);
+            }
+                // контролируем наших котиков, не добежал ли кто до финиша
+                for (int i = 0; i < GameData.catCount; i++) {
+                    // если забег и кот преодалел финишную линию
+                    if (GameData.status == GameData.STATUS_RUN && cats[i].getX() > 636 + 50) {
+                        // то забег закончен, есть победитель
+                        GameData.status = GameData.STATUS_WIN;
+                        // сохраняем его
+                        GameData.winCatNum = i;
+                        // ставим флаг, что победа в этом шаге цикла и потом сбрасываем его в начале цикла, чтобы не крутиться тут вечно
+                        f = true;
+                        break;
+                    }
 
-            // контролируем наших котиков, не добежал ли кто до финиша
-            for (int i = 0; i < GameData.catCount; i++) {
-                // если забег и кот преодалел финишную линию
-                if (GameData.status == GameData.STATUS_RUN && cats[i].getX() > 636 + 50) {
-                    // то забег закончен, есть победитель
-                    GameData.status = GameData.STATUS_WIN;
-                    // сохраняем его
-                    GameData.winCatNum = i;
-                    // ставим флаг, что победа в этом шаге цикла и потом сбрасываем его в начале цикла, чтобы не крутиться тут вечно
-                    f = true;
-                    break;
+                    // обновляем котов (анимация + сдвиг координат )
+                    cats[i].updateStage();
+                    // отрисовка кота на нашем слое
+                    cats[i].drawCat(g);
                 }
 
-                // обновляем котов (анимация + сдвиг координат )
-                cats[i].updateStage();
-                // отрисовка кота на нашем слое
-                cats[i].drawCat(g);
-            }
             // repaint();
             // отрисовываем весь стэк слоёв
             try {

@@ -13,7 +13,7 @@ public class GameData {
     public static int winCatNum = 0;
     public static int userMoney = 100;
     public static int userStavka = 0;
-    public static int freqRandom = 8;
+    public static int freqRandom = 5;
     public static int maxSpeed = 20;
     public static int minSpeed = 5;
     public static int catCount = 6;
