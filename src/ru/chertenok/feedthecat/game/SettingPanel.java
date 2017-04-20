@@ -30,6 +30,8 @@ public class SettingPanel extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
+        constraints.insets = new Insets(10,10,10,10);
+        constraints.anchor = GridBagConstraints.EAST;
         add(new JLabel("Количество котов: "), constraints);
         tf_catCount = new JTextField(5);
         tf_catCount.setText(Integer.toString(GameData.catCount));
