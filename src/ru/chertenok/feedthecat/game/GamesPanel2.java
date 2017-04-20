@@ -1,27 +1,29 @@
 package ru.chertenok.feedthecat.game;
 
 import ru.chertenok.feedthecat.Main;
-import ru.chertenok.feedthecat.model.DrawPanel;
+import ru.chertenok.feedthecat.model.Bowl;
 import ru.chertenok.feedthecat.model.Cat;
+import ru.chertenok.feedthecat.model.DrawPanel;
 import ru.chertenok.feedthecat.model.ImageData;
 import ru.chertenok.feedthecat.ttf.CustomFonts;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
 /**
  * Created by 13th on 17-Apr-17.
  */
-public class GamesPanel extends DrawPanel {
+public class GamesPanel2 extends DrawPanel {
 
     private BufferedImage backgroundFon;
     private Cat[] cats = new Cat[8];
+    private Bowl bowl ;
     private JPanel userPanel;
     private ImageData id_welcome;
     private ImageData id_wait;
@@ -33,13 +35,18 @@ public class GamesPanel extends DrawPanel {
     private SettingPanel sp;
     volatile  private int userPanelHeight = 50;
     private Rectangle _repaintBound;
+    private boolean isKeyPressed ;
+    private int key;
 
 
 
-    public GamesPanel() {
+    public GamesPanel2() {
         super(800, 600);
         GameData.status = GameData.STATUS_WAIT;
         setLayout(new BorderLayout());
+
+
+
         userPanel = new JPanel();
         //setOpaque(true);
         userPanel.setSize(panelWidth, userPanelHeight);
@@ -92,18 +99,18 @@ public class GamesPanel extends DrawPanel {
         userPanel.add(b_start);
         userPanel.add(new JLabel("      "));
         b_setting = new JButton("Настройка");
-        GamesPanel gp = this;
+        GamesPanel2 gp = this;
         b_setting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (sp == null) sp = new SettingPanel(gp);
+              //  if (sp == null) sp = new SettingPanel(gp);
                 sp.setVisible(true);
                 sp.setAlwaysOnTop(true);
             }
         });
         userPanel.add(b_setting);
 
-        add(userPanel, BorderLayout.SOUTH);
+        //add(userPanel, BorderLayout.SOUTH);
 
         userPanelHeight = userPanel.getHeight();
         _repaintBound = new Rectangle(0, 0, panelWidth, panelHeight - userPanelHeight);
@@ -141,6 +148,9 @@ public class GamesPanel extends DrawPanel {
             cats[i].setX(50);
             cats[i].setY(i * 70);
         }
+        bowl = new Bowl();
+        bowl.setX(700);
+        bowl.setY(100);
 
 
         BufferedImage image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
@@ -216,8 +226,10 @@ public class GamesPanel extends DrawPanel {
 
                     // обновляем котов (анимация + сдвиг координат )
                     cats[i].updateStage();
+                    bowl.updateStage();
                     // отрисовка кота на нашем слое
                     cats[i].draw(g);
+                    bowl.draw(g);
                 }
 
             // repaint();

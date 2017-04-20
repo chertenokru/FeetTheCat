@@ -15,7 +15,7 @@ public class GameData {
     // выигравший кот
     public static int winCatNum = 0;
     // счёт юзера
-    public static int userMoney = 100;
+    public static int userMoney = 200;
     // ставка юзера
     public static int userStavka = 0;
     // итераций до смены скорости

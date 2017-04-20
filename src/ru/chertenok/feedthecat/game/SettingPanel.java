@@ -109,10 +109,6 @@ public class SettingPanel extends JFrame {
                     GameData.stageDelay = Integer.valueOf(tf_spriteDelay.getText());
                 } catch (Exception e) {
                 }
-                try {
-                    GameData.sleepTime = Integer.valueOf(tf_sleepDelay.getText());
-                } catch (Exception e) {
-                }
                  try {
                         gamesPanel.setMaxFPS( Integer.valueOf(tf_fpsDelay.getText()));
                     } catch (Exception e) {
