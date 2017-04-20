@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37e01869-01eb-44dc-902f-5ec4b527242f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/images/bowl.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Bowl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GameData.java" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GameData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesFrame.java" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel.java" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/SettingPanel.java" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/SettingPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Cat.java" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Cat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Sprite.java" afterPath="$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Sprite.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,7 +21,7 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="425">
               <caret line="28" column="15" lean-forward="false" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
               <folding />
             </state>
@@ -41,11 +31,10 @@
       <file leaf-file-name="GamesFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+            <state relative-caret-position="422">
+              <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#487#712#0" expanded="true" />
                 <element signature="e#711#712#0" expanded="true" />
               </folding>
             </state>
@@ -55,7 +44,7 @@
       <file leaf-file-name="GamesPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
+            <state relative-caret-position="3502">
               <caret line="219" column="32" lean-forward="false" selection-start-line="219" selection-start-column="32" selection-end-line="219" selection-end-column="32" />
               <folding />
             </state>
@@ -65,7 +54,7 @@
       <file leaf-file-name="GamesPanel2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
+            <state relative-caret-position="561">
               <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
@@ -75,8 +64,8 @@
       <file leaf-file-name="Bowl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Bowl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="32" column="25" lean-forward="true" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+            <state relative-caret-position="425">
+              <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#595#596#0" expanded="true" />
@@ -89,8 +78,8 @@
       <file leaf-file-name="Cat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Cat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="92" column="5" lean-forward="true" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+            <state relative-caret-position="1428">
+              <caret line="92" column="5" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -99,7 +88,7 @@
       <file leaf-file-name="SettingPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/SettingPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
+            <state relative-caret-position="323">
               <caret line="22" column="34" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="34" />
               <folding />
             </state>
@@ -119,7 +108,7 @@
       <file leaf-file-name="DrawPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/DrawPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
+            <state relative-caret-position="1972">
               <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
               <folding />
             </state>
@@ -129,7 +118,7 @@
       <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Sprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
+            <state relative-caret-position="578">
               <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -229,7 +218,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -380,6 +368,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -667,6 +656,7 @@
       <setting name="passParentEnv" value="true" />
       <setting name="launchBrowser" value="true" />
       <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -837,7 +827,8 @@
       <workItem from="1492497705234" duration="26905000" />
       <workItem from="1492586329916" duration="15907000" />
       <workItem from="1492627198738" duration="14286000" />
-      <workItem from="1492669749933" duration="11620000" />
+      <workItem from="1492669749933" duration="11669000" />
+      <workItem from="1492705243770" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="жесткий рефакторинг, глючит ограничение fps">
       <created>1492641172955</created>
@@ -853,11 +844,18 @@
       <option name="project" value="LOCAL" />
       <updated>1492675164667</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="добавил 2 режим игры">
+      <created>1492700036629</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1492700036629</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140747000" />
+    <option name="totallyTimeSpent" value="140864000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -875,21 +873,19 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756633" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32887402" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32756633" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756633" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27628362" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2799511" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -900,7 +896,9 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756633" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -912,7 +910,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="жесткий рефакторинг, глючит ограничение fps" />
     <MESSAGE value="прваки панели настроек" />
-    <option name="LAST_COMMIT_MESSAGE" value="прваки панели настроек" />
+    <MESSAGE value="добавил 2 режим игры" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавил 2 режим игры" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -961,7 +960,6 @@
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#487#712#0" expanded="true" />
             <element signature="e#711#712#0" expanded="true" />
           </folding>
         </state>
@@ -1062,9 +1060,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1112,9 +1107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1196,9 +1188,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1230,7 +1219,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="425">
           <caret line="28" column="15" lean-forward="false" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
           <folding />
         </state>
@@ -1246,7 +1235,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/SettingPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
+        <state relative-caret-position="323">
           <caret line="22" column="34" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="34" />
           <folding />
         </state>
@@ -1254,7 +1243,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/DrawPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
+        <state relative-caret-position="1972">
           <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
           <folding />
         </state>
@@ -1262,15 +1251,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Cat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="92" column="5" lean-forward="true" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+        <state relative-caret-position="1428">
+          <caret line="92" column="5" lean-forward="false" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="3502">
           <caret line="219" column="32" lean-forward="false" selection-start-line="219" selection-start-column="32" selection-end-line="219" selection-end-column="32" />
           <folding />
         </state>
@@ -1278,7 +1267,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
+        <state relative-caret-position="578">
           <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1288,8 +1277,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/model/Bowl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="32" column="25" lean-forward="true" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+        <state relative-caret-position="425">
+          <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#595#596#0" expanded="true" />
@@ -1300,7 +1289,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesPanel2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
+        <state relative-caret-position="561">
           <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
@@ -1308,11 +1297,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/chertenok/feedthecat/game/GamesFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+        <state relative-caret-position="422">
+          <caret line="25" column="55" lean-forward="false" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#487#712#0" expanded="true" />
             <element signature="e#711#712#0" expanded="true" />
           </folding>
         </state>
