@@ -19,6 +19,8 @@ public class Cat extends Sprite {
     public static final int STATUS_LOSER = 3;
     // кол-во статусов, почему-то тоже тут
     public static final int STATUS_COUNT = 4;
+    // картинка со спрайтами
+    public static Image spriteImage;
 
     private Font font;
     // счётчик
@@ -41,7 +43,8 @@ public class Cat extends Sprite {
     }
 
     public Cat() {
-        super("/ru/chertenok/feedthecat/images/cat.png");
+        super();
+        if (spriteImage == null ) spriteImage = loadImage("/ru/chertenok/feedthecat/images/cat.png");
         spriteSizeX = 56;
         spriteSizeY = 62;
         spriteDelay = GameData.stageDelay;

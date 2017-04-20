@@ -33,6 +33,24 @@ public abstract class DrawPanel extends JPanel implements Runnable {
     volatile protected boolean fpsIsLimit = true;
 
     private Graphics2D g;
+    volatile private int keyCode;
+    volatile private boolean keyPressed;
+
+    synchronized public int getKeyCode() {
+        keyPressed = false;
+        return keyCode;
+    }
+
+    synchronized public void setKeyCode(int keyCode) {
+        this.keyCode = keyCode;
+        System.out.println("key "+ keyCode);
+        keyPressed = true;
+    }
+
+    synchronized public boolean isKeyPressed() {
+        return keyPressed;
+    }
+
 
     public Rectangle getRepaintBound() {
         return repaintBound;

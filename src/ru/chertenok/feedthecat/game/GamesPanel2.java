@@ -35,8 +35,10 @@ public class GamesPanel2 extends DrawPanel {
     private SettingPanel sp;
     volatile  private int userPanelHeight = 50;
     private Rectangle _repaintBound;
-    private boolean isKeyPressed ;
-    private int key;
+
+    private ImageIcon imageBag;
+    private ImageIcon imageHeart;
+    private int heart = 3;
 
 
 
@@ -131,8 +133,15 @@ public class GamesPanel2 extends DrawPanel {
             }
         // добавляем в стэк отрисовки самым нижним слоем
         imageList.add(new ImageData(backgroundFon, 0, 0, backgroundFon.getWidth(), backgroundFon.getHeight()));
+
+        imageBag = new ImageIcon(Main.class.getResource("/ru/chertenok/feedthecat/images/bag1.png"));
+        g.drawImage(imageBag.getImage(),600,450,null);
+        imageHeart = new ImageIcon(Main.class.getResource("/ru/chertenok/feedthecat/images/heart1.png"));
         g.dispose();
         repaint();
+
+
+
     }
 
 
@@ -148,9 +157,12 @@ public class GamesPanel2 extends DrawPanel {
             cats[i].setX(50);
             cats[i].setY(i * 70);
         }
+
         bowl = new Bowl();
-        bowl.setX(700);
+        bowl.setX(730);
         bowl.setY(100);
+        bowl.setStatus(Bowl.STATUS_EMPTY);
+
 
 
         BufferedImage image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
@@ -172,12 +184,16 @@ public class GamesPanel2 extends DrawPanel {
         // welcome сообщение
         image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
         g = DrawPanel.initGraphics(image);
-        g.setFont(CustomFonts.getCustomFont(3, Font.ITALIC, 30));
-        String s = "Укажите Вашу ставку и";
+        g.setFont(CustomFonts.getCustomFont(3, Font.ITALIC, 20));
+        String s = "Используйте клавиши W и S ";
         // получаем размеры надписи и её координаты для надписи по центру экрана
         Rectangle rect = CustomFonts.getTextCenterInImage(s, image, g);
+        g.drawString(s, rect.x, rect.y+40);
+        s = "для управления миской";
+        // получаем размеры надписи и её координаты для надписи по центру экрана
+        rect = CustomFonts.getTextCenterInImage(s, image, g);
         g.drawString(s, rect.x, rect.y);
-        s = "и \n выберите номер котолошади!";
+        s = "и \n кликайте по мешку чтобы наполнить миску";
         rect = CustomFonts.getTextCenterInImage(s, image, g);
         g.drawString(s, rect.x, rect.y + 80);
         // сохраняем ссылку на слой, чтоб его можно было удалять и добавлять в процессе игры
@@ -191,6 +207,8 @@ public class GamesPanel2 extends DrawPanel {
         imageList.add(new ImageData(image, 0, 0, _repaintBound.width, _repaintBound.height));
 
         repaint();
+
+        int keycode;
 
         boolean f;
         long num = 0;
@@ -223,14 +241,44 @@ public class GamesPanel2 extends DrawPanel {
                         f = true;
                         break;
                     }
-
                     // обновляем котов (анимация + сдвиг координат )
                     cats[i].updateStage();
-                    bowl.updateStage();
                     // отрисовка кота на нашем слое
                     cats[i].draw(g);
-                    bowl.draw(g);
                 }
+            if (isKeyPressed()) {
+                keycode = getKeyCode();
+                switch (keycode){
+                    case 38:
+                    case 78:{
+                        bowl.setY(bowl.getY()-62);
+                        break;
+                    }
+                    case 40:
+                    case 83:{
+                        bowl.setY(bowl.getY()+62);
+                        break;
+                    }
+                    case 32:{
+                        switch (bowl.getStatus()){
+                            case Bowl.STATUS_EMPTY:{
+                                bowl.setStatus(Bowl.STATUS_MIDDLE);
+                                break;
+                            }
+                            case Bowl.STATUS_MIDDLE:{
+                                bowl.setStatus(Bowl.STATUS_FULL);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            bowl.draw(g);
+            for (int j = 0; j < heart ; j++) {
+                g.drawImage(imageHeart.getImage(),580+j*35,20,null);
+            }
+
 
             // repaint();
             // отрисовываем весь стэк слоёв

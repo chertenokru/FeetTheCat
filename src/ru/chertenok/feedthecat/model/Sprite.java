@@ -13,8 +13,6 @@ public abstract class Sprite {
     // движение
     protected int moveDX;
     protected int moveDY;
-    // картинка со спрайтами
-    protected Image spriteImage;
     // задержка между стадиями анимации
     protected long spriteDelay = 0;
     protected long timeLastSpriteUpdate = 0;
@@ -31,12 +29,18 @@ public abstract class Sprite {
     protected int status = 0;
 
 
-    public Sprite(String spriteMapPath) {
-        // грузим картинку со справйтами
-        ImageIcon ik = new ImageIcon(getClass().getResource(spriteMapPath));
-        this.spriteImage = ik.getImage();
-        res = spriteMapPath;
-    }
+    public Sprite() {
+         }
+
+    public Image loadImage(String spriteMapPath){
+            // грузим картинку со справйтами
+            ImageIcon ik = new ImageIcon(getClass().getResource(spriteMapPath));
+            res = spriteMapPath;
+            return  ik.getImage();
+
+        }
+
+
 
     abstract public void draw(Graphics2D g );
 

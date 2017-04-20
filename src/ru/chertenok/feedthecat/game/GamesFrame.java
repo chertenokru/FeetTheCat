@@ -24,7 +24,7 @@ public class GamesFrame extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent keyEvent) {
-                System.out.println(keyEvent.getKeyChar());
+                p.setKeyCode(keyEvent.getExtendedKeyCode());
                 super.keyReleased(keyEvent);
             }
         });

@@ -19,6 +19,8 @@ public class Bowl extends Sprite {
     private long num = 1;
     private Random rand = new Random();
 
+    // картинка со спрайтами
+    public static Image spriteImage;
 
     public int getStatus() {
         return status;
@@ -29,18 +31,19 @@ public class Bowl extends Sprite {
 
 
     public Bowl() {
-        super("/ru/chertenok/feedthecat/images/bowl.png");
-        spriteSizeX = 56;
-        spriteSizeY = 62;
+        super();
+        if (spriteImage == null ) spriteImage = loadImage("/ru/chertenok/feedthecat/images/bowl.png");
+        spriteSizeX = 50;
+        spriteSizeY = 26;
 
         // статусы-состояния
         pointImage = new Point[STATUS_COUNT][];
         // для каждого состояния прописываем координаты каждой стадии анимации
 
         pointImage[STATUS_MIDDLE] = new Point[1];
-        pointImage[STATUS_MIDDLE][0]= new Point(0,0);
+        pointImage[STATUS_MIDDLE][0]= new Point(1,0);
         pointImage[STATUS_EMPTY] = new Point[1];
-        pointImage[STATUS_EMPTY][0]= new Point(0,0);
+        pointImage[STATUS_EMPTY][0]= new Point(2,0);
         pointImage[STATUS_FULL] = new Point[1];
         pointImage[STATUS_FULL][0]= new Point(0,0);
 
@@ -73,7 +76,23 @@ public class Bowl extends Sprite {
         // проверяем чтоб не частить прошло ли положенное время задержки
         if ((time-timeLastSpriteUpdate) < GameData.stageDelay) return ;
         // следующая стадия анимации по кругу
-        if (currentStage < pointImage[status].length-1) currentStage ++; else currentStage = 0;
+        //if (currentStage < pointImage[status].length-1) currentStage ++; else currentStage = 0;
+
+         switch (getStatus()) {
+             case  Bowl.STATUS_FULL:{
+                 setStatus(Bowl.STATUS_MIDDLE);
+                 break;
+
+         }
+         case Bowl.STATUS_MIDDLE:{
+             setStatus(Bowl.STATUS_EMPTY);
+             break;
+
+            }
+            default: {
+                 setStatus(Bowl.STATUS_FULL);
+         }
+        }
         // если ...
         // передвигаем
         x += moveDX;
