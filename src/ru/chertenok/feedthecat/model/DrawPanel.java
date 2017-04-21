@@ -2,8 +2,10 @@ package ru.chertenok.feedthecat.model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by 13th on 17-Apr-17.
@@ -12,17 +14,17 @@ public abstract class DrawPanel extends JPanel implements Runnable {
     protected int panelWidth;
     protected int panelHeight;
     // стэк картинок для отрисовки
-    protected java.util.List<ImageData> imageList = new ArrayList();
+    protected Map<String, ImageData> imageList = new LinkedHashMap<>();
     // отрисованный стэк картинок
     protected BufferedImage background;
     // темповые для времени
     private long lastTime = System.nanoTime();
-    private long _lastTime ;
+    private long _lastTime;
     // текущий fps
-    volatile  protected int fpsCount = 0;
+    volatile protected int fpsCount = 0;
     // fps
     volatile protected int fps = 0;
-    private Rectangle repaintBound ;
+    private Rectangle repaintBound;
     // FPS рисовать
     protected boolean drawFPS = true;
     protected int fpsPositionX = 100;
@@ -35,6 +37,29 @@ public abstract class DrawPanel extends JPanel implements Runnable {
     private Graphics2D g;
     volatile private int keyCode;
     volatile private boolean keyPressed;
+    private ImageData id;
+
+    volatile private Point mouseMoveXY = new Point(0,0);
+    volatile  private int mouseY;
+    volatile private boolean mouseClicked = false;
+    volatile private Point mouseClickedXY;
+
+
+    synchronized public Point getMouseMoveXY() {
+        return mouseMoveXY;
+    }
+
+
+    synchronized public boolean isMouseClicked() {
+        return mouseClicked;
+    }
+
+
+    synchronized  public Point getMouseClickedXY() {
+        mouseClicked = false;
+        return mouseClickedXY;
+    }
+
 
     synchronized public int getKeyCode() {
         keyPressed = false;
@@ -43,7 +68,7 @@ public abstract class DrawPanel extends JPanel implements Runnable {
 
     synchronized public void setKeyCode(int keyCode) {
         this.keyCode = keyCode;
-        System.out.println("key "+ keyCode);
+        System.out.println("key " + keyCode);
         keyPressed = true;
     }
 
@@ -58,42 +83,63 @@ public abstract class DrawPanel extends JPanel implements Runnable {
 
     public void setRepaintBound(Rectangle repaintBound) {
         this.repaintBound = repaintBound;
-        background  = new BufferedImage(repaintBound.width, repaintBound.height, BufferedImage.TYPE_INT_RGB);
+        background = new BufferedImage(repaintBound.width, repaintBound.height, BufferedImage.TYPE_INT_RGB);
         g = initGraphics(background);
     }
 
     // конструктор
-    public DrawPanel(int x,int y) {
+    public DrawPanel(int x, int y) {
         super();
         panelWidth = x;
         panelHeight = y;
-        repaintBound = new Rectangle(0,0,panelWidth,panelHeight);
+        repaintBound = new Rectangle(0, 0, panelWidth, panelHeight);
         background = new BufferedImage(panelWidth, panelHeight, BufferedImage.TYPE_INT_RGB);
         g = initGraphics(background);
         //setOpaque(true);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent mouseEvent) {
+                super.mouseClicked(mouseEvent);
+                mouseClickedXY = new Point(mouseEvent.getX(),mouseEvent.getY());
+                mouseClicked = true;
+            }
+        });
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent mouseEvent) {
+                super.mouseMoved(mouseEvent);
+                mouseMoveXY = new Point(mouseEvent.getX(),mouseEvent.getY());
+            }
+        });
+
+
     }
 
-    // начальная стэка
+    // отрисовка
     protected void paintBackground() {
         // очистка
         g.setColor(Color.BLACK);
         g.fillRect(repaintBound.x, repaintBound.y, repaintBound.width, repaintBound.height);
 
-        ImageData id;
+
         // отрисовываем стэк картинок
-        for (int i = 0; i < imageList.size(); i++) {
-            id = imageList.get(i);
-            g.drawImage(id.image, id.x, id.y, id.width, id.heigth, null);
+        for (Map.Entry<String, ImageData> map : imageList.entrySet()) {
+            id = map.getValue();
+//            System.out.println(map.getKey());
+            if (id.visible) g.drawImage(id.image, id.x, id.y, id.width, id.heigth, null);
         }
         // выводим FPS
-        if (drawFPS){
+        if (drawFPS) {
             g.setColor(fpsColor);
-            g.drawString("FPS: "+fps,fpsPositionX,fpsPositionY);
+            g.drawString("FPS: " + fps, fpsPositionX, fpsPositionY);
         }
 
     }
 
-    /** sleep
+    /**
+     * sleep
+     *
      * @param time
      */
     protected void sleep(long time) {
@@ -104,17 +150,21 @@ public abstract class DrawPanel extends JPanel implements Runnable {
         }
     }
 
-    /** Извлекаем графикс и настраиваем его
+    /**
+     * Извлекаем графикс и настраиваем его
+     *
      * @param image
      * @return
      */
-    public static Graphics2D initGraphics(Image image){
-        Graphics2D g = (Graphics2D)image.getGraphics();
+    public static Graphics2D initGraphics(Image image) {
+        Graphics2D g = (Graphics2D) image.getGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         return g;
     }
 
-    /** отрисовка панели
+    /**
+     * отрисовка панели
+     *
      * @param graphics
      */
     @Override
@@ -122,14 +172,13 @@ public abstract class DrawPanel extends JPanel implements Runnable {
 
         // считаем FPS
         _lastTime = System.nanoTime();
-        if ( (_lastTime - lastTime)>= 1000000000)
-        {
+        if ((_lastTime - lastTime) >= 1000000000) {
             fps = fpsCount;
             lastTime = _lastTime;
             fpsCount = 0;
         } else {
             // ограничение FPS на отрисовку
-            if (fpsIsLimit && fpsCount > fpsMax ) return;
+            if (fpsIsLimit && fpsCount > fpsMax) return;
 
             fpsCount++;
         }
@@ -137,15 +186,10 @@ public abstract class DrawPanel extends JPanel implements Runnable {
         // построение фона
         paintBackground();
         // отрисовка фона
-        graphics.drawImage(background, repaintBound.x, repaintBound.y, repaintBound.width,repaintBound.height, null);
-     //   super.paintChildren(graphics);
+        graphics.drawImage(background, repaintBound.x, repaintBound.y, repaintBound.width, repaintBound.height, null);
+        //   super.paintChildren(graphics);
 
     }
-
-
-
-
-
 
 
 }

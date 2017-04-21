@@ -67,7 +67,7 @@ public class GamesPanel extends DrawPanel {
                     for (int i = 0; i < GameData.catCount; i++) {
                         cats[i].setStatus(Cat.STATUS_RUN);
                         b_start.setEnabled(false);
-                        imageList.remove(id_welcome);
+                        imageList.get("welcome").visible = false;
                         GameData.status = GameData.STATUS_RUN;
 
                     }
@@ -76,7 +76,7 @@ public class GamesPanel extends DrawPanel {
                 if (GameData.status == GameData.STATUS_WIN) {
                     GameData.status = GameData.STATUS_WAIT;
                     b_start.setText("Start !");
-                    imageList.add(id_welcome);
+                    imageList.get("welcome").visible = true;
                     for (int i = 0; i < GameData.catCount; i++) {
                         cats[i].setX(50);
                         cats[i].setStatus(Cat.STATUS_WAIT);
@@ -123,7 +123,7 @@ public class GamesPanel extends DrawPanel {
                 g.drawImage(imageI.getImage(), i * imageI.getIconWidth(), j * imageI.getIconHeight(), null);
             }
         // добавляем в стэк отрисовки самым нижним слоем
-        imageList.add(new ImageData(backgroundFon, 0, 0, backgroundFon.getWidth(), backgroundFon.getHeight()));
+        imageList.put("background",new ImageData(backgroundFon, 0, 0, backgroundFon.getWidth(), backgroundFon.getHeight()));
         g.dispose();
         repaint();
     }
@@ -137,7 +137,7 @@ public class GamesPanel extends DrawPanel {
 
         // инициализация котов
         for (int i = 0; i < GameData.catCount; i++) {
-            cats[i] = new Cat();
+            cats[i] = new Cat(true);
             cats[i].setX(50);
             cats[i].setY(i * 70);
         }
@@ -156,7 +156,7 @@ public class GamesPanel extends DrawPanel {
         for (int i = 0; i < GameData.catCount; i++) {
             g.drawString("" + (i + 1), 20, 71 * i + 50);
         }
-        imageList.add(new ImageData(image, 0, 0, panelWidth, panelHeight - userPanelHeight));
+        imageList.put("backgroundGameInfo",new ImageData(image, 0, 0, panelWidth, panelHeight - userPanelHeight));
         g.dispose();
 
         // welcome сообщение
@@ -172,13 +172,13 @@ public class GamesPanel extends DrawPanel {
         g.drawString(s, rect.x, rect.y + 80);
         // сохраняем ссылку на слой, чтоб его можно было удалять и добавлять в процессе игры
         id_welcome = new ImageData(image, 0, 0, _repaintBound.width, _repaintBound.height);
-        imageList.add(id_welcome);
+        imageList.put("welcome",id_welcome);
         g.dispose();
 
         // а на этом слое мы будем рисовать наших котиков
         image = new BufferedImage(_repaintBound.width, _repaintBound.height, BufferedImage.TYPE_INT_ARGB);
         g = DrawPanel.initGraphics(image);
-        imageList.add(new ImageData(image, 0, 0, _repaintBound.width, _repaintBound.height));
+        imageList.put("game",new ImageData(image, 0, 0, _repaintBound.width, _repaintBound.height));
 
         repaint();
 

@@ -19,6 +19,7 @@ public class Cat extends Sprite {
     public static final int STATUS_LOSER = 3;
     // кол-во статусов, почему-то тоже тут
     public static final int STATUS_COUNT = 4;
+    private boolean needChangeSpeed = true;
     // картинка со спрайтами
     public static Image spriteImage;
 
@@ -42,8 +43,9 @@ public class Cat extends Sprite {
             moveDX = 0;
     }
 
-    public Cat() {
+    public Cat(boolean needChangeSpeed) {
         super();
+        this.needChangeSpeed = needChangeSpeed;
         if (spriteImage == null ) spriteImage = loadImage("/ru/chertenok/feedthecat/images/cat.png");
         spriteSizeX = 56;
         spriteSizeY = 62;
@@ -129,7 +131,7 @@ public class Cat extends Sprite {
         if (status == STATUS_RUN)
         {
             // и прошло GameData.freqRandom итераций, то генерим новую скорость для всех котов
-            if ( (num % GameData.freqRandom) == 0) {
+            if ( needChangeSpeed && (num % GameData.freqRandom) == 0) {
                 // новая скорость по горизонтали
                 moveDX = rand.nextInt((GameData.maxSpeed - GameData.minSpeed) + 1) + GameData.minSpeed;
             }

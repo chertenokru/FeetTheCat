@@ -21,9 +21,9 @@ public class GameData {
     // итераций до смены скорости
     public static int freqRandom = 5;
     // макс спиид
-    public static int maxSpeed = 20;
+    public static int maxSpeed = 10;
     // мин спид
-    public static int minSpeed = 5;
+    public static int minSpeed = 2;
     // кол-во котов (1-8)
     public static int catCount = 6;
     // задержка в наносекундах между анимацией и движением (те самые инерации)

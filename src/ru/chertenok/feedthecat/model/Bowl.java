@@ -13,6 +13,10 @@ public class Bowl extends Sprite {
     public static final int STATUS_MIDDLE = 1;
     public static final int STATUS_EMPTY = 2;
     public static final int STATUS_COUNT = 3;
+    private int position = 0;
+    private int maxposition = GameData.catCount;
+    private int step = 70;
+    private int upStep = 20;
 
     private Font font;
     // счётчик
@@ -28,6 +32,58 @@ public class Bowl extends Sprite {
     public void setStatus(int status) {
         this.status = status;
       }
+
+    public int getPosition() {
+        return position;
+    }
+
+
+    public void positionUp() {
+        if (position > 0) {
+            position--;
+            y = step * position + upStep;
+        }
+    }
+
+    public void positionDown() {
+        if (position < maxposition-1) {
+            position++;
+            y = step * position +upStep;
+        }
+
+    }
+
+
+    public void setEmpty(){
+        switch (status) {
+            case Bowl.STATUS_FULL: {
+                setStatus(Bowl.STATUS_MIDDLE);
+                break;
+            }
+            case Bowl.STATUS_MIDDLE: {
+                setStatus(Bowl.STATUS_EMPTY);
+                break;
+            }
+        }
+    }
+
+    public void setFull(){
+        switch (status) {
+            case Bowl.STATUS_EMPTY: {
+                setStatus(Bowl.STATUS_MIDDLE);
+                break;
+            }
+            case Bowl.STATUS_MIDDLE: {
+                setStatus(Bowl.STATUS_FULL);
+                break;
+            }
+        }
+    }
+
+    public boolean isEmpty(){
+        return status == Bowl.STATUS_EMPTY;
+    }
+
 
 
     public Bowl() {
@@ -51,8 +107,8 @@ public class Bowl extends Sprite {
         status = 0;
         // случайная стадия анимации
         currentStage = rand.nextInt(pointImage[status].length);
-        x = 50;
-        y = 50;
+        x = 0;
+        y = 0;
         moveDX = 0;
         moveDY = 0;
 

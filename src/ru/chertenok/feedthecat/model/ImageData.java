@@ -1,6 +1,8 @@
 package ru.chertenok.feedthecat.model;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 13th on 15.04.2017.
@@ -11,6 +13,7 @@ public class ImageData {
     public int y;
     public int width;
     public int heigth;
+    public boolean visible = true;
 
     public ImageData(Image image, int x, int y, int width, int heigth) {
         this.image = image;
@@ -19,12 +22,11 @@ public class ImageData {
         this.width = width;
         this.heigth = heigth;
     }
-    public static void clearImageList(java.util.List<ImageData> ids){
+    public static void clearImageList(Map<String,ImageData> maps){
         ImageData id;
-        while (ids.size()>0){
-            id = ids.get(0);
-            ids.remove(0);
-            id.image = null;
+        for (Map.Entry< String, ImageData > map: maps.entrySet()){
+        map.getValue().image = null;
         }
+        maps.clear();
     }
 }
