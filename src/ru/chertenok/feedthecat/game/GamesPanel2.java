@@ -26,7 +26,10 @@ public class GamesPanel2 extends DrawPanel {
 
     private ImageIcon imageBag;
     private ImageIcon imageHeart;
+    // жизни
     private int heart = 3;
+
+    private int marginTop = 30;
 
     private Rectangle strStartRect;
 
@@ -37,10 +40,6 @@ public class GamesPanel2 extends DrawPanel {
         setLayout(new BorderLayout());
 
 
-/*
-                }
-                // продолжить
-*/
         _repaintBound = new Rectangle(0, 0, panelWidth, panelHeight);
         setRepaintBound(_repaintBound);
         buildBackground();
@@ -80,12 +79,12 @@ public class GamesPanel2 extends DrawPanel {
         for (int i = 0; i < GameData.catCount; i++) {
             cats[i] = new Cat(false);
             cats[i].setX(50);
-            cats[i].setY(i * 70);
+            cats[i].setY(i * 70 + marginTop);
         }
 
         bowl = new Bowl();
         bowl.setX(730);
-        bowl.setY(70);
+        bowl.setY(70 + marginTop);
         bowl.setStatus(Bowl.STATUS_EMPTY);
 
 
@@ -100,7 +99,7 @@ public class GamesPanel2 extends DrawPanel {
         // рисуем номера котов
         g.setFont(CustomFonts.getCustomFont(3, 30));
         for (int i = 0; i < GameData.catCount; i++) {
-            g.drawString("" + (i + 1), 20, 71 * i + 50);
+            g.drawString("" + (i + 1), 20, 71 * i + marginTop + 50);
         }
         imageList.put("gameDate", new ImageData(image, 0, 0, panelWidth, panelHeight));
         g.dispose();
@@ -175,7 +174,6 @@ public class GamesPanel2 extends DrawPanel {
                             for (int j = 0; j < GameData.catCount; j++) {
                                 cats[j].setStatus(Cat.STATUS_LOSER);
                                 strStart = "RESTART";
-                                heart = 3;
                                 f = true;
                                 break;
                             }
@@ -185,12 +183,6 @@ public class GamesPanel2 extends DrawPanel {
 
                     cats[i].setX(50);
 
-                    // то забег закончен, есть победитель
-                    //GameData.status = GameData.STATUS_WIN;
-                    // strStart = "RESTART";
-                    // ставим флаг, что победа в этом шаге цикла и потом сбрасываем его в начале цикла, чтобы не крутиться тут вечно
-                    //f = true;
-                    //break;
                 }
                 // обновляем котов (анимация + сдвиг координат )
                 cats[i].updateStage();
@@ -201,7 +193,7 @@ public class GamesPanel2 extends DrawPanel {
                 keycode = getKeyCode();
                 switch (keycode) {
                     case 38:
-                    case 78: {
+                    case 87: {
                         bowl.positionUp();
                         break;
                     }
@@ -256,6 +248,7 @@ public class GamesPanel2 extends DrawPanel {
                             cats[i].setX(50);
                             cats[i].setStatus(Cat.STATUS_WAIT);
                         }
+                        heart = 3;
                         strStart = "START !";
                     }
 

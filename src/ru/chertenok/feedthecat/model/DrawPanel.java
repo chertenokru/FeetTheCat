@@ -2,6 +2,8 @@ package ru.chertenok.feedthecat.model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -68,7 +70,7 @@ public abstract class DrawPanel extends JPanel implements Runnable {
 
     synchronized public void setKeyCode(int keyCode) {
         this.keyCode = keyCode;
-        System.out.println("key " + keyCode);
+//        System.out.println("key " + keyCode);
         keyPressed = true;
     }
 
@@ -112,6 +114,17 @@ public abstract class DrawPanel extends JPanel implements Runnable {
                 mouseMoveXY = new Point(mouseEvent.getX(),mouseEvent.getY());
             }
         });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+                setKeyCode(keyEvent.getExtendedKeyCode());
+                super.keyReleased(keyEvent);
+            }
+        });
+        // говорим что панель может получать фокус ввода чтобы получать нажатия клавиш
+        setFocusable(true);
+        grabFocus();
+
 
 
     }

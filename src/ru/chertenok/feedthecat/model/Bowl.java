@@ -16,7 +16,7 @@ public class Bowl extends Sprite {
     private int position = 0;
     private int maxposition = GameData.catCount;
     private int step = 70;
-    private int upStep = 20;
+    private int upStep = 70;
 
     private Font font;
     // счётчик
