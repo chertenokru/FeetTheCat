@@ -6,6 +6,7 @@ import ru.chertenok.feedthecat.ttf.CustomFonts;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
@@ -20,6 +21,7 @@ public class Cat extends Sprite {
     // кол-во статусов, почему-то тоже тут
     public static final int STATUS_COUNT = 4;
     private boolean needChangeSpeed = true;
+    private int startPosition = 50;
     // картинка со спрайтами
     public static Image spriteImage;
 
@@ -27,6 +29,22 @@ public class Cat extends Sprite {
     // счётчик
     private long num = 1;
     private Random rand = new Random();
+
+    public boolean isNeedChangeSpeed() {
+        return needChangeSpeed;
+    }
+
+    public int getStartPosition() {
+        return startPosition;
+    }
+
+    public void setStartPosition(int startPosition) {
+        this.startPosition = startPosition;
+    }
+
+    public void setNeedChangeSpeed(boolean needChangeSpeed) {
+        this.needChangeSpeed = needChangeSpeed;
+    }
 
     public int getStatus() {
         return status;
@@ -41,6 +59,13 @@ public class Cat extends Sprite {
         } else
             // иначе наоборот тормозим
             moveDX = 0;
+    }
+
+    public void catRestart(){
+        // новая скорость по горизонтали
+        moveDX = rand.nextInt((GameData.maxSpeed - GameData.minSpeed) + 1) + GameData.minSpeed;
+        x = startPosition;
+
     }
 
     public Cat(boolean needChangeSpeed) {
@@ -90,7 +115,7 @@ public class Cat extends Sprite {
         status = 0;
         // случайная стадия анимации
         currentStage = rand.nextInt(pointImage[status].length);
-        x = 50;
+        x = startPosition;
         y = 50;
         moveDX = 0;
         moveDY = 0;

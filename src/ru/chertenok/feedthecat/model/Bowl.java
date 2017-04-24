@@ -18,6 +18,7 @@ public class Bowl extends Sprite {
     private int step = 70;
     private int upStep = 70;
 
+
     private Font font;
     // счётчик
     private long num = 1;
@@ -40,9 +41,9 @@ public class Bowl extends Sprite {
 
     public void positionUp() {
         if (position > 0) {
-            position--;
+            position--;}
             y = step * position + upStep;
-        }
+
     }
 
     public void positionDown() {

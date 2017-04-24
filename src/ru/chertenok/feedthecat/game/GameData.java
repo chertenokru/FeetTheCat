@@ -23,7 +23,7 @@ public class GameData {
     // макс спиид
     public static int maxSpeed = 10;
     // мин спид
-    public static int minSpeed = 2;
+    public static int minSpeed = 4;
     // кол-во котов (1-8)
     public static int catCount = 6;
     // задержка в наносекундах между анимацией и движением (те самые инерации)

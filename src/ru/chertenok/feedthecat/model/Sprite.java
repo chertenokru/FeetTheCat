@@ -2,6 +2,7 @@ package ru.chertenok.feedthecat.model;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by 13th on 17-Apr-17.
@@ -28,6 +29,13 @@ public abstract class Sprite {
     // статус состояний спрайта
     protected int status = 0;
 
+    public int getSpriteSizeX() {
+        return spriteSizeX;
+    }
+
+    public int getSpriteSizeY() {
+        return spriteSizeY;
+    }
 
     public Sprite() {
          }
@@ -35,8 +43,11 @@ public abstract class Sprite {
     public Image loadImage(String spriteMapPath){
             // грузим картинку со справйтами
             ImageIcon ik = new ImageIcon(getClass().getResource(spriteMapPath));
+            BufferedImage bf = new BufferedImage(ik.getIconWidth(),ik.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+            bf.getGraphics().drawImage(ik.getImage(),0,0,ik.getIconWidth(),ik.getIconHeight(),null);
+            ik = null;
             res = spriteMapPath;
-            return  ik.getImage();
+            return  bf;
 
         }
 

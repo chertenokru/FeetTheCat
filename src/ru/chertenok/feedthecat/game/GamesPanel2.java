@@ -28,10 +28,13 @@ public class GamesPanel2 extends DrawPanel {
     private ImageIcon imageHeart;
     // жизни
     private int heart = 3;
+    private int maxHeart = 10;
 
     private int marginTop = 30;
 
     private Rectangle strStartRect;
+    private int catSaved = 0;
+    private int catDie = 0;
 
 
     public GamesPanel2() {
@@ -83,8 +86,9 @@ public class GamesPanel2 extends DrawPanel {
         }
 
         bowl = new Bowl();
-        bowl.setX(730);
-        bowl.setY(70 + marginTop);
+        bowl.setX(750);
+        bowl.positionUp();
+
         bowl.setStatus(Bowl.STATUS_EMPTY);
 
 
@@ -92,7 +96,8 @@ public class GamesPanel2 extends DrawPanel {
         Graphics2D g = DrawPanel.initGraphics(image);
         // линия финиша
         g.setColor(Color.YELLOW);
-        g.drawRect(700, 2, 1, 500);
+        g.setStroke(new BasicStroke(2));
+        g.drawRect(700, 52, 50, 400);
         // линия старта
         g.setColor(Color.WHITE);
         g.drawRect(50, 2, 1, 500);
@@ -132,11 +137,14 @@ public class GamesPanel2 extends DrawPanel {
         sleep(20);
 
         int keycode;
-        Font font = CustomFonts.getCustomFont(3, Font.BOLD, 40);
+        Font fontMenu = CustomFonts.getCustomFont(3, Font.BOLD, 40);
+        Font fontStatus = CustomFonts.getCustomFont(3,  20);
         Font font1 = CustomFonts.getCustomFont(3, Font.BOLD, 42);
-        g.setFont(font);
+        g.setFont(fontMenu);
         String strStart = "START !";
         strStartRect = CustomFonts.getTextCenterInImage(strStart, image, g);
+        String catsSaved = "Сытых котов :   ";
+        String catsDie = "Голодных котов :   ";
 
         boolean f;
         long num = 0;
@@ -158,30 +166,68 @@ public class GamesPanel2 extends DrawPanel {
                 g.setComposite(AlphaComposite.Src);
                 // стираем
                 g.fillRect(0, 0, _repaintBound.width, _repaintBound.height);
+                g.setComposite(AlphaComposite.DstOver);
             }
             // контролируем наших котиков, не добежал ли кто до финиша
             for (int i = 0; i < GameData.catCount; i++) {
                 // если забег и кот преодалел финишную линию
-                if (GameData.status == GameData.STATUS_RUN && cats[i].getX() > 700) {
+                if (GameData.status == GameData.STATUS_RUN && cats[i].getX() > 650) {
 
                     if (bowl.getPosition() == i && !bowl.isEmpty()) {
                         bowl.setEmpty();
-                    } else {
-                        heart--;
-                        if (heart < 0) {
-                            //финиш
-                            GameData.status = GameData.STATUS_WIN;
+                        cats[i].draw(g);
+                        g.setColor(Color.GREEN);
+                        g.drawRect(cats[i].getX(),cats[i].getY(),cats[i].getSpriteSizeX(),cats[i].getSpriteSizeY());
+                        catSaved++;
+                        if (heart<maxHeart && (catSaved % 10) == 0 ) heart++;
+
+                        if ( (catSaved % 15) == 0 )   {
+                            GameData.maxSpeed +=5;
+                        }
+                        if ( (catSaved % 40) == 0)  {
+                            GameData.minSpeed +=5;
+                        }
+                        if (catSaved == 60) {
                             for (int j = 0; j < GameData.catCount; j++) {
-                                cats[j].setStatus(Cat.STATUS_LOSER);
-                                strStart = "RESTART";
-                                f = true;
-                                break;
+                                cats[j].setNeedChangeSpeed(true);
+                                GameData.minSpeed = 2;
+                                GameData.maxSpeed = 10;
                             }
+
                         }
 
+
+                        repaint();
+                        sleep(200);
+                        cats[i].catRestart();
+
+                    } else {
+                        if (cats[i].getX() > 700) {
+
+                            heart--;
+                            if (heart < 0) {
+                                //финиш
+                                GameData.status = GameData.STATUS_WIN;
+                                GameData.winCatNum = i;
+                                catDie++;
+                                for (int j = 0; j < GameData.catCount; j++) {
+                                    cats[j].setStatus(Cat.STATUS_LOSER);
+                                    strStart = "RESTART";
+                                    f = true;
+                                    break;
+                                }
+                            }
+                            g.setColor(Color.RED);
+                            cats[i].draw(g);
+                            catDie++;
+                            g.drawRect(cats[i].getX(),cats[i].getY(),cats[i].getSpriteSizeX(),cats[i].getSpriteSizeY());
+                            repaint();
+                            sleep(200);
+
+                            if (GameData.status== GameData.STATUS_RUN) cats[i].catRestart();
+                        }
                     }
 
-                    cats[i].setX(50);
 
                 }
                 // обновляем котов (анимация + сдвиг координат )
@@ -212,9 +258,9 @@ public class GamesPanel2 extends DrawPanel {
             bowl.draw(g);
 
             for (int j = 0; j < heart; j++) {
-                g.drawImage(imageHeart.getImage(), 580 + j * 35, 20, null);
+                g.drawImage(imageHeart.getImage(), 400 + j * 35, 15, null);
             }
-            g.setFont(font);
+            g.setFont(fontMenu);
 
             //System.out.println(" mouse - "+getMouseMoveXY().x+" rect "+(50+strStartRect.width));
             if (50 < getMouseMoveXY().x && (strStartRect.width + 50) > getMouseMoveXY().x &&
@@ -257,6 +303,11 @@ public class GamesPanel2 extends DrawPanel {
             }
 
             g.drawString(strStart, 50, 550);
+            g.setFont(fontStatus);
+            g.setColor(Color.yellow);
+
+            g.drawString(catsDie + catDie, 400, 550);
+            g.drawString(catsSaved + catSaved, 434, 570);
 
             // repaint();
             // отрисовываем весь стэк слоёв
