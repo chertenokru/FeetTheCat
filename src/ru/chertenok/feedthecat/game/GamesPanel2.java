@@ -28,7 +28,7 @@ public class GamesPanel2 extends DrawPanel {
     private ImageIcon imageHeart;
     // жизни
     private int heart = 3;
-    private int maxHeart = 10;
+    private int maxHeart = 5;
 
     private int marginTop = 30;
 
@@ -182,10 +182,8 @@ public class GamesPanel2 extends DrawPanel {
                         if (heart<maxHeart && (catSaved % 10) == 0 ) heart++;
 
                         if ( (catSaved % 15) == 0 )   {
-                            GameData.maxSpeed +=5;
-                        }
-                        if ( (catSaved % 40) == 0)  {
-                            GameData.minSpeed +=5;
+                            GameData.maxSpeed +=2;
+                            GameData.minSpeed +=2;
                         }
                         if (catSaved == 60) {
                             for (int j = 0; j < GameData.catCount; j++) {
@@ -291,10 +289,16 @@ public class GamesPanel2 extends DrawPanel {
                         GameData.status = GameData.STATUS_WAIT;
                         imageList.get("welcome").visible = true;
                         for (int i = 0; i < GameData.catCount; i++) {
-                            cats[i].setX(50);
+                            cats[i].setX(cats[i].getStartPosition());
                             cats[i].setStatus(Cat.STATUS_WAIT);
+                            cats[i].setNeedChangeSpeed(false);
                         }
                         heart = 3;
+                        catDie = 0;
+                        catSaved = 0;
+                        GameData.minSpeed = GameData.MIN_SPEED;
+                        GameData.maxSpeed = GameData.MAX_SPEED;
+
                         strStart = "START !";
                     }
 

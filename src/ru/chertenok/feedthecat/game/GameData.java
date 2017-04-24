@@ -8,6 +8,8 @@ public class GameData {
     public static final int STATUS_WAIT = 0;
     public static final int STATUS_RUN = 1;
     public static final int STATUS_WIN = 2;
+    public static final int MIN_SPEED = 4;
+    public static final int MAX_SPEED = 10;
     // статус игры
     public static int status = STATUS_WAIT;
     // выбранный кот пользователем
@@ -21,9 +23,9 @@ public class GameData {
     // итераций до смены скорости
     public static int freqRandom = 5;
     // макс спиид
-    public static int maxSpeed = 10;
+    public static int maxSpeed = MAX_SPEED;
     // мин спид
-    public static int minSpeed = 4;
+    public static int minSpeed = MIN_SPEED;
     // кол-во котов (1-8)
     public static int catCount = 6;
     // задержка в наносекундах между анимацией и движением (те самые инерации)
